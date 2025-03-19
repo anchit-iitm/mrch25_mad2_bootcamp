@@ -1,29 +1,21 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_security import Security, auth_required, roles_accepted, current_user, login_user
+from flask_restful import Api
 
 from models import db, user_datastore
 from config import development_config
+from routes import signup_fr, signin_fr
 
 app = Flask(__name__)
 app.config.from_object(development_config)
 
 db.init_app(app)
 Security(app, user_datastore)
+api = Api(app)
 
-with app.app_context():
-    db.create_all()
-    user_datastore.find_or_create_role(name='admin')
-    user_datastore.find_or_create_role(name='manager')
-    user_datastore.find_or_create_role(name='customer')
 
-    if not user_datastore.find_user(email='admin@abc.com'):
-        user_datastore.create_user(
-            name='admin',
-            email='admin@abc.com',
-            password='admin',
-            roles=['admin']
-        )
-    db.session.commit()
+api.add_resource(signup_fr, '/api/register')
+api.add_resource(signin_fr, '/api/login')
 
 @app.route('/signup', methods=['POST']) #/api/register
 def signup():
