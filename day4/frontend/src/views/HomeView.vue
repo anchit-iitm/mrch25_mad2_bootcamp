@@ -1,9 +1,7 @@
 <template>
   <div class="home">
-    <h3>HomeView.vue start</h3>
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App n=anchit"/>
-    <h3>HomeView.vue end</h3>
   </div>
 </template>
 
@@ -15,6 +13,11 @@ export default {
   name: 'HomeView',
   components: {
     HelloWorld
+  },
+  mounted() {
+    if (!localStorage.getItem('token')) {
+      this.$router.push('/about');
+    }
   }
 }
 </script>

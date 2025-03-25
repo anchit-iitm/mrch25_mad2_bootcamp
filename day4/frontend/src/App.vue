@@ -1,11 +1,9 @@
 <template>
-  <h2>app.vue start</h2>
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
   <router-view/>
-  <h2>app.vue end</h2>
 </template>
 
 <script>
