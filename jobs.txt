@@ -1,0 +1,8 @@
+mailhog
+sudo apt-get -y install golang-go
+go install github.com/mailhog/MailHog@latest
+
+redis server
+sudo apt-get -y install redis-server
+
+redis-server
